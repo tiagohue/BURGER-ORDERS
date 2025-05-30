@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
           error: Colors.red,
           onError: Colors.red,
           surface: const Color.fromARGB(255, 255, 226, 147),
-          onSurface: Colors.red,
+          onSurface: Colors.black,
         ),
         textTheme: TextTheme(
           titleLarge: TextStyle(

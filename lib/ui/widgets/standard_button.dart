@@ -22,7 +22,10 @@ class StandardButton extends StatelessWidget {
           fixedSize: Size(200, 50),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(12)),
-            side: BorderSide(width: 2),
+            side: BorderSide(
+              width: 2,
+              color: Theme.of(context).colorScheme.primary,
+            ),
           ),
         ),
         child: Stack(

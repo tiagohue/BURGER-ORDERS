@@ -1,5 +1,7 @@
 import 'package:app_de_pedidos_de_hamburguer/ui/pages/home_page.dart';
+import 'package:app_de_pedidos_de_hamburguer/ui/widgets/current_color_scheme.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -10,29 +12,25 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        colorScheme: ColorScheme(
-          brightness: Brightness.light,
-          primary: Colors.black,
-          onPrimary: Colors.white,
-          secondary: Colors.red,
-          onSecondary: Colors.red,
-          error: Colors.red,
-          onError: Colors.red,
-          surface: const Color.fromARGB(255, 255, 226, 147),
-          onSurface: Colors.black,
-        ),
-        textTheme: TextTheme(
-          titleLarge: TextStyle(
-            fontFamily: "NewRocker",
-            fontSize: 50,
-            color: Colors.black,
-            height: 0.8,
-          ),
-        ),
+    return ChangeNotifierProvider(
+      create: (context) => CurrentColorScheme(),
+      child: Consumer<CurrentColorScheme>(
+        builder:
+            (BuildContext context, CurrentColorScheme value, Widget? child) =>
+                MaterialApp(
+                  theme: ThemeData(
+                    colorScheme: value.current,
+                    textTheme: TextTheme(
+                      titleLarge: TextStyle(
+                        fontFamily: "NewRocker",
+                        fontSize: 50,
+                        height: 0.8,
+                      ),
+                    ),
+                  ),
+                  home: const HomePage(),
+                ),
       ),
-      home: const HomePage(),
     );
   }
 }

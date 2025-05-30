@@ -1,4 +1,4 @@
-import 'package:app_de_pedidos_de_hamburguer/pages/home_page.dart';
+import 'package:app_de_pedidos_de_hamburguer/ui/pages/home_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {

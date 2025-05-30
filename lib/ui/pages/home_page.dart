@@ -1,6 +1,6 @@
-import 'package:app_de_pedidos_de_hamburguer/components/standard_button.dart';
-import 'package:app_de_pedidos_de_hamburguer/pages/burguers_page.dart';
-import 'package:app_de_pedidos_de_hamburguer/pages/orders_page.dart';
+import 'package:app_de_pedidos_de_hamburguer/ui/widgets/standard_button.dart';
+import 'package:app_de_pedidos_de_hamburguer/ui/pages/burguers_page.dart';
+import 'package:app_de_pedidos_de_hamburguer/ui/pages/orders_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 

@@ -26,36 +26,40 @@ class _HomePageState extends State<HomePage> {
             children: [
               Spacer(flex: 2),
               FittedBox(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Consumer<CurrentColorScheme>(
-                      builder:
-                          (
-                            BuildContext context,
-                            CurrentColorScheme value,
-                            Widget? child,
-                          ) {
-                            if (value.current.brightness == Brightness.light) {
-                              return Image.asset(
-                                "lib/ui/images/burguer_logo.png",
-                                scale: 1.75,
-                              );
-                            } else {
-                              return Image.asset(
-                                "lib/ui/images/burguer_logo_yellow.png",
-                                scale: 1.75,
-                              );
-                            }
-                          },
-                    ),
+                child: Padding(
+                  padding: EdgeInsetsGeometry.symmetric(horizontal: 20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Consumer<CurrentColorScheme>(
+                        builder:
+                            (
+                              BuildContext context,
+                              CurrentColorScheme value,
+                              Widget? child,
+                            ) {
+                              if (value.current.brightness ==
+                                  Brightness.light) {
+                                return Image.asset(
+                                  "lib/ui/images/burguer_logo.png",
+                                  scale: 1.75,
+                                );
+                              } else {
+                                return Image.asset(
+                                  "lib/ui/images/burguer_logo_yellow.png",
+                                  scale: 1.75,
+                                );
+                              }
+                            },
+                      ),
 
-                    Column(
-                      children: [
-                        Text("BURGUER\nORDERS", style: textTheme.titleLarge),
-                      ],
-                    ),
-                  ],
+                      Column(
+                        children: [
+                          Text("BURGUER\nORDERS", style: textTheme.titleLarge),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
               Spacer(),

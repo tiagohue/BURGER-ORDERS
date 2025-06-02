@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class CurrentColorScheme extends ChangeNotifier {
+class ColorSchemeViewModel extends ChangeNotifier {
   ColorScheme current = ColorScheme(
     brightness: Brightness.light,
     primary: Colors.black,

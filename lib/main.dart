@@ -1,5 +1,7 @@
+import 'package:app_de_pedidos_de_hamburguer/data/burguer.dart';
+import 'package:app_de_pedidos_de_hamburguer/data/repositories/burguer_repository.dart';
 import 'package:app_de_pedidos_de_hamburguer/ui/pages/home_page.dart';
-import 'package:app_de_pedidos_de_hamburguer/ui/widgets/current_color_scheme.dart';
+import 'package:app_de_pedidos_de_hamburguer/viewmodels/color_scheme_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:path/path.dart';
 import 'package:provider/provider.dart';
@@ -30,10 +32,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => CurrentColorScheme(),
-      child: Consumer<CurrentColorScheme>(
+      create: (context) => ColorSchemeViewModel(),
+      child: Consumer<ColorSchemeViewModel>(
         builder:
-            (BuildContext context, CurrentColorScheme value, Widget? child) =>
+            (BuildContext context, ColorSchemeViewModel value, Widget? child) =>
                 MaterialApp(
                   theme: ThemeData(
                     colorScheme: value.current,

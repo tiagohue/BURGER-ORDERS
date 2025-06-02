@@ -1,4 +1,4 @@
-import 'package:app_de_pedidos_de_hamburguer/ui/widgets/current_color_scheme.dart';
+import 'package:app_de_pedidos_de_hamburguer/viewmodels/color_scheme_view_model.dart';
 import 'package:app_de_pedidos_de_hamburguer/ui/widgets/standard_button.dart';
 import 'package:app_de_pedidos_de_hamburguer/ui/pages/burguers_page.dart';
 import 'package:app_de_pedidos_de_hamburguer/ui/pages/orders_page.dart';
@@ -31,11 +31,11 @@ class _HomePageState extends State<HomePage> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Consumer<CurrentColorScheme>(
+                      Consumer<ColorSchemeViewModel>(
                         builder:
                             (
                               BuildContext context,
-                              CurrentColorScheme value,
+                              ColorSchemeViewModel value,
                               Widget? child,
                             ) {
                               if (value.current.brightness ==
@@ -91,7 +91,7 @@ class _HomePageState extends State<HomePage> {
                 iconData: MaterialCommunityIcons.theme_light_dark,
                 text: "Theme",
                 onPressed: () {
-                  Provider.of<CurrentColorScheme>(
+                  Provider.of<ColorSchemeViewModel>(
                     context,
                     listen: false,
                   ).change();

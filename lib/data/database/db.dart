@@ -9,9 +9,9 @@ class DB {
   // ignore: unused_field
   static Database? _database;
 
-  Future get database async {
+  Future<Database> get database async {
     // ignore: unnecessary_null_comparison, recursive_getters
-    if (database != null) return database;
+    if (_database != null) return _database!;
 
     return await _initDatabase();
   }
@@ -31,7 +31,7 @@ class DB {
   }
 
   String get _burguer => '''
-    CREATE TABLE burguer (
+    CREATE TABLE burguers (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       name TEXT,
       ingredients TEXT,
@@ -40,7 +40,7 @@ class DB {
   ''';
 
   String get _order => '''
-    CREATE TABLE order (
+    CREATE TABLE orders (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       data DATE
     );
@@ -48,9 +48,11 @@ class DB {
 
   String get _orderBurguer => '''
     CREATE TABLE order_burguer (
-      burguer_id INTEGER FOREIGN KEY,
-      order_id INTEGER FOREIGN KEY,
-      amount INTEGER
+      burguer_id INTEGER,
+      order_id INTEGER,
+      amount INTEGER,
+      FOREIGN KEY (burguer_id) REFERENCES burguers(id),
+      FOREIGN KEY (order_id) REFERENCES orders(id)
     );
   ''';
 }

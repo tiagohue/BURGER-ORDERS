@@ -1,27 +1,26 @@
-import 'package:app_de_pedidos_de_hamburguer/data/repositories/burguer_repository.dart';
-import 'package:app_de_pedidos_de_hamburguer/ui/widgets/standard_button.dart';
+import 'package:burger_orders/data/repositories/burger_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class BurguersPage extends StatefulWidget {
-  const BurguersPage({super.key});
+class BurgersPage extends StatefulWidget {
+  const BurgersPage({super.key});
 
   @override
-  State<StatefulWidget> createState() => _BurguersPageState();
+  State<StatefulWidget> createState() => _BurgersPageState();
 }
 
-class _BurguersPageState extends State<BurguersPage> {
+class _BurgersPageState extends State<BurgersPage> {
   @override
   Widget build(BuildContext context) {
-    final repo = context.watch<BurguerRepository>();
+    final repo = context.watch<BurgerRepository>();
 
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(centerTitle: true, title: Text("Burguers")),
+        appBar: AppBar(centerTitle: true, title: Text("Burgers")),
         body: Center(
           child: ListView.builder(
-            itemCount: 1,
-            itemBuilder: (_, _) => ListTile(title: Text("burguer")),
+            itemCount: repo.burgers.length,
+            itemBuilder: (_, _) => ListTile(title: Text("burger")),
           ),
           /*child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -33,6 +32,10 @@ class _BurguersPageState extends State<BurguersPage> {
               StandardButton(text: "Delete", onPressed: () {}),
             ],
           ),*/
+        ),
+        floatingActionButton: IconButton(
+          onPressed: () {},
+          icon: Icon(Icons.add),
         ),
       ),
     );

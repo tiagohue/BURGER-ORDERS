@@ -1,7 +1,7 @@
-import 'package:app_de_pedidos_de_hamburguer/viewmodels/color_scheme_view_model.dart';
-import 'package:app_de_pedidos_de_hamburguer/ui/widgets/standard_button.dart';
-import 'package:app_de_pedidos_de_hamburguer/ui/pages/burguers_page.dart';
-import 'package:app_de_pedidos_de_hamburguer/ui/pages/orders_page.dart';
+import 'package:burger_orders/ui/pages/burgers_page.dart';
+import 'package:burger_orders/viewmodels/color_scheme_view_model.dart';
+import 'package:burger_orders/ui/widgets/standard_button.dart';
+import 'package:burger_orders/ui/pages/orders_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:provider/provider.dart';
@@ -41,12 +41,12 @@ class _HomePageState extends State<HomePage> {
                               if (value.current.brightness ==
                                   Brightness.light) {
                                 return Image.asset(
-                                  "lib/ui/images/burguer_logo.png",
+                                  "lib/ui/images/burger_logo.png",
                                   scale: 1.75,
                                 );
                               } else {
                                 return Image.asset(
-                                  "lib/ui/images/burguer_logo_yellow.png",
+                                  "lib/ui/images/burger_logo_yellow.png",
                                   scale: 1.75,
                                 );
                               }
@@ -55,7 +55,7 @@ class _HomePageState extends State<HomePage> {
 
                       Column(
                         children: [
-                          Text("BURGUER\nORDERS", style: textTheme.titleLarge),
+                          Text("BURGER\nORDERS", style: textTheme.titleLarge),
                         ],
                       ),
                     ],
@@ -65,12 +65,12 @@ class _HomePageState extends State<HomePage> {
               Spacer(),
               StandardButton(
                 iconData: MaterialCommunityIcons.hamburger,
-                text: "Burguers",
+                text: "Burgers",
                 onPressed: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (BuildContext context) => BurguersPage(),
+                      builder: (BuildContext context) => BurgersPage(),
                     ),
                   );
                 },

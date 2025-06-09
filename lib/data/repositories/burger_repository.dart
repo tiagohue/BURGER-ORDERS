@@ -1,21 +1,21 @@
-import 'package:app_de_pedidos_de_hamburguer/data/database/db.dart';
-import 'package:app_de_pedidos_de_hamburguer/data/models/burguer.dart';
+import 'package:burger_orders/data/database/db.dart';
+import 'package:burger_orders/data/models/burger.dart';
 import 'package:flutter/material.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
-class BurguerRepository extends ChangeNotifier {
+class BurgerRepository extends ChangeNotifier {
   late Database db;
-  List<Burguer> burguers = [];
+  List<Burger> burgers = [];
 
-  BurguerRepository() {
+  BurgerRepository() {
     _initRepository();
   }
 
   Future<void> _initRepository() async {
     db = await DB.instance.database;
-    for (Map<String, Object?> row in await db.query("burguers")) {
-      burguers.add(
-        Burguer(
+    for (Map<String, Object?> row in await db.query("burgers")) {
+      burgers.add(
+        Burger(
           id: row["id"] as int,
           name: row["name"] as String,
           ingredients: row["ingredients"] as String,
@@ -27,10 +27,10 @@ class BurguerRepository extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future create(Burguer burguer) async {
+  Future create(Burger burger) async {
     await db.insert(
-      "burguers",
-      burguer.toMap(),
+      "burgers",
+      burger.toMap(),
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
 
@@ -38,8 +38,8 @@ class BurguerRepository extends ChangeNotifier {
   }
 
   Future retrieve(int id) async {
-    List<Map<String, Object?>> burguerMaps = await db.query(
-      "burguer",
+    List<Map<String, Object?>> burgerMaps = await db.query(
+      "burger",
       where: "id = ?",
       whereArgs: [id],
     );
@@ -51,26 +51,26 @@ class BurguerRepository extends ChangeNotifier {
             "ingredients": ingredients as String,
             "price": price as double,
           }
-          in burguerMaps)
-        Burguer(id: id, name: name, ingredients: ingredients, price: price),
+          in burgerMaps)
+        Burger(id: id, name: name, ingredients: ingredients, price: price),
     ];
   }
 
-  List<Burguer> retrieveAll() => burguers;
+  List<Burger> retrieveAll() => burgers;
 
-  Future update(Burguer burguer) async {
+  Future update(Burger burger) async {
     await db.update(
-      "burguers",
-      burguer.toMap(),
+      "burgers",
+      burger.toMap(),
       where: "id = ?",
-      whereArgs: [burguer.id],
+      whereArgs: [burger.id],
     );
 
     notifyListeners();
   }
 
   Future delete(int id) async {
-    await db.delete("burguers", where: "id = ?", whereArgs: [id]);
+    await db.delete("burgers", where: "id = ?", whereArgs: [id]);
 
     notifyListeners();
   }

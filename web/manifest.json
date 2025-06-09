@@ -1,6 +1,6 @@
 {
-    "name": "app_de_pedidos_de_hamburguer",
-    "short_name": "app_de_pedidos_de_hamburguer",
+    "name": "burger_orders",
+    "short_name": "burger_orders",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

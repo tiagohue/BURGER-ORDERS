@@ -1,6 +1,6 @@
-import 'package:app_de_pedidos_de_hamburguer/data/repositories/burguer_repository.dart';
-import 'package:app_de_pedidos_de_hamburguer/ui/pages/home_page.dart';
-import 'package:app_de_pedidos_de_hamburguer/viewmodels/color_scheme_view_model.dart';
+import 'package:burger_orders/data/repositories/burger_repository.dart';
+import 'package:burger_orders/ui/pages/home_page.dart';
+import 'package:burger_orders/viewmodels/color_scheme_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
@@ -14,7 +14,7 @@ void main() async {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => ColorSchemeViewModel()),
-        ChangeNotifierProvider(create: (context) => BurguerRepository()),
+        ChangeNotifierProvider(create: (context) => BurgerRepository()),
       ],
       child: const MyApp(),
     ),

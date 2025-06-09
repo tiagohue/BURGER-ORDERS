@@ -1,10 +1,10 @@
-class Burguer {
+class Burger {
   final int id;
   final String name;
   final String ingredients;
   final double price;
 
-  const Burguer({
+  const Burger({
     required this.id,
     required this.name,
     required this.ingredients,
@@ -20,5 +20,5 @@ class Burguer {
 
   @override
   String toString() =>
-      "Burguer{id: $id, name: $name, ingredients: $ingredients, price: $price}";
+      "Burger{id: $id, name: $name, ingredients: $ingredients, price: $price}";
 }

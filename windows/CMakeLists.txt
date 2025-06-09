@@ -1,10 +1,10 @@
 # Project-level configuration.
 cmake_minimum_required(VERSION 3.14)
-project(app_de_pedidos_de_hamburguer LANGUAGES CXX)
+project(burger_orders LANGUAGES CXX)
 
 # The name of the executable created for the application. Change this to change
 # the on-disk name of your application.
-set(BINARY_NAME "app_de_pedidos_de_hamburguer")
+set(BINARY_NAME "burger_orders")
 
 # Explicitly opt in to modern CMake behaviors to avoid warnings with recent
 # versions of CMake.

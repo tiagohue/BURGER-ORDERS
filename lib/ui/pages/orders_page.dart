@@ -1,4 +1,4 @@
-import 'package:app_de_pedidos_de_hamburguer/ui/widgets/standard_button.dart';
+import 'package:burger_orders/ui/widgets/standard_button.dart';
 import 'package:flutter/material.dart';
 
 class OrdersPage extends StatefulWidget {

@@ -14,25 +14,28 @@ class CreateOrderPage extends StatefulWidget {
 }
 
 class _CreateOrderPageState extends State<CreateOrderPage> {
+  final customerNameController = TextEditingController();
+  final Map<int, int> burgerQuantities = {};
+
+  @override
+  void dispose() {
+    customerNameController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final orderRepo = context.watch<OrderRepository>();
     final burgerRepo = context.watch<BurgerRepository>();
 
-    final customerNameController = TextEditingController();
-
-    @override
-    // ignore: unused_element
-    void dispose() {
-      customerNameController.dispose();
-      super.dispose();
-    }
-
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(centerTitle: true, title: Text("Orders")),
+        appBar: AppBar(
+          centerTitle: true,
+          title: FittedBox(child: Text("Create Order")),
+        ),
         body: Padding(
-          padding: EdgeInsetsGeometry.symmetric(horizontal: 10),
+          padding: EdgeInsets.symmetric(horizontal: 10),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -53,6 +56,7 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
                     itemCount: burgerRepo.burgers.length,
                     itemBuilder: (context, index) {
                       Burger burger = burgerRepo.burgers[index];
+                      int quantity = burgerQuantities[burger.id] ?? 0;
 
                       return ListTile(
                         title: Text(
@@ -65,17 +69,26 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
                             children: [
                               IconButton(
                                 onPressed: () {
-                                  debugPrint("Remove burger");
+                                  setState(() {
+                                    if (quantity > 0) {
+                                      burgerQuantities[burger.id!] =
+                                          quantity - 1;
+                                    } else {
+                                      burgerQuantities[burger.id!] = 0;
+                                    }
+                                  });
                                 },
                                 icon: Icon(Icons.remove),
                               ),
                               Text(
-                                "amount",
+                                quantity.toString(),
                                 style: Theme.of(context).textTheme.titleMedium,
                               ),
                               IconButton(
                                 onPressed: () {
-                                  debugPrint("Add burger");
+                                  setState(() {
+                                    burgerQuantities[burger.id!] = quantity + 1;
+                                  });
                                 },
                                 icon: Icon(Icons.add),
                               ),
@@ -99,7 +112,8 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
                       onPressed: () {
                         final customerName = customerNameController.text.trim();
 
-                        if (customerName.isEmpty) {
+                        if (customerName.isEmpty ||
+                            burgerQuantities.values.every((q) => q == 0)) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
                               content: Text("Fill in all fields correctly!"),
@@ -109,9 +123,22 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
                           return;
                         }
 
+                        List<OrderBurger> orderBurgers = [];
+                        burgerQuantities.forEach((burgerId, quantity) {
+                          if (quantity > 0) {
+                            orderBurgers.add(
+                              OrderBurger(
+                                burgerId: burgerId,
+                                quantity: quantity,
+                              ),
+                            );
+                          }
+                        });
+
                         final newOrder = Order(
                           date: DateTime.now().toIso8601String().split('T')[0],
                           customerName: customerName,
+                          orderBurgers: orderBurgers,
                         );
 
                         orderRepo.create(newOrder);

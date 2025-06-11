@@ -15,30 +15,32 @@ class BurgersPage extends StatefulWidget {
 }
 
 class _BurgersPageState extends State<BurgersPage> {
+  final nameController = TextEditingController();
+  final ingredientsController = TextEditingController();
+  final priceController = TextEditingController();
+
+  final updateNameController = TextEditingController();
+  final updateIngredientsController = TextEditingController();
+  final updatePriceController = TextEditingController();
+
+  @override
+  void dispose() {
+    nameController.dispose();
+    ingredientsController.dispose();
+    priceController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final repo = context.watch<BurgerRepository>();
 
-    final nameController = TextEditingController();
-    final ingredientsController = TextEditingController();
-    final priceController = TextEditingController();
-
-    final updateNameController = TextEditingController();
-    final updateIngredientsController = TextEditingController();
-    final updatePriceController = TextEditingController();
-
-    @override
-    // ignore: unused_element
-    void dispose() {
-      nameController.dispose();
-      ingredientsController.dispose();
-      priceController.dispose();
-      super.dispose();
-    }
-
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(centerTitle: true, title: Text("Burgers")),
+        appBar: AppBar(
+          centerTitle: true,
+          title: FittedBox(child: Text("Burgers")),
+        ),
         body: Center(
           child: ListView.builder(
             itemCount: repo.burgers.length,

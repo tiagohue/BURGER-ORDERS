@@ -13,12 +13,29 @@ class OrderRepository extends ChangeNotifier {
 
   Future<void> _initRepository() async {
     db = await DB.instance.database;
+
     for (Map<String, Object?> row in await db.query("orders")) {
+      final orderBurgerMap = await db.query(
+        'order_burger',
+        where: 'order_id = ?',
+        whereArgs: [row["id"]],
+      );
+
+      final orderBurgers = orderBurgerMap
+          .map(
+            (e) => OrderBurger(
+              burgerId: e['burger_id'] as int,
+              quantity: e['quantity'] as int,
+            ),
+          )
+          .toList();
+
       orders.add(
         Order(
           id: row["id"] as int,
           date: row["date"] as String,
           customerName: row["customer_name"] as String,
+          orderBurgers: orderBurgers,
         ),
       );
     }
@@ -32,6 +49,14 @@ class OrderRepository extends ChangeNotifier {
       order.toMap(),
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
+
+    for (OrderBurger orderBurger in order.orderBurgers) {
+      await db.insert("order_burger", {
+        "order_id": id,
+        "burger_id": orderBurger.burgerId,
+        "quantity": orderBurger.quantity,
+      });
+    }
 
     order.id = id;
 

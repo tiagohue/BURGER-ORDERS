@@ -1,6 +1,8 @@
 import 'package:burger_orders/data/models/order.dart';
 import 'package:burger_orders/data/repositories/order_repository.dart';
-import 'package:burger_orders/ui/pages/create_order_page.dart';
+import 'package:burger_orders/providers/order_update_provider.dart';
+import 'package:burger_orders/ui/pages/order/create_order_page.dart';
+import 'package:burger_orders/ui/pages/order/update_order_page.dart';
 import 'package:burger_orders/ui/widgets/add_button.dart';
 import 'package:burger_orders/ui/widgets/standard_dialog.dart';
 import 'package:flutter/material.dart';
@@ -19,20 +21,12 @@ class _OrdersPageState extends State<OrdersPage> {
   Widget build(BuildContext context) {
     final orderRepo = context.watch<OrderRepository>();
 
-    final customerNameController = TextEditingController();
-
-    final updateCustomerNameController = TextEditingController();
-
-    @override
-    // ignore: unused_element
-    void dispose() {
-      customerNameController.dispose();
-      super.dispose();
-    }
-
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(centerTitle: true, title: Text("Orders")),
+        appBar: AppBar(
+          centerTitle: true,
+          title: FittedBox(child: Text("Orders")),
+        ),
         body: Center(
           child: ListView.builder(
             itemCount: orderRepo.orders.length,
@@ -78,52 +72,16 @@ class _OrdersPageState extends State<OrdersPage> {
                     // edit button
                     IconButton(
                       onPressed: () {
-                        updateCustomerNameController.text = order.customerName;
+                        Provider.of<OrderUpdateProvider>(
+                          context,
+                          listen: false,
+                        ).setOrder(order);
 
-                        showDialog(
-                          context: context,
-                          builder: (_) => StandardDialog(
-                            title: "Update Order",
-                            content: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                TextField(
-                                  controller: updateCustomerNameController,
-                                  decoration: InputDecoration(
-                                    labelText: "Name",
-                                  ),
-                                ),
-                                Text("todo: add burger list here "),
-                              ],
-                            ),
-                            onConfirm: () {
-                              final customerName = updateCustomerNameController
-                                  .text
-                                  .trim();
-
-                              if (customerName.isEmpty) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                    content: Text(
-                                      "Fill in all fields correctly!",
-                                    ),
-                                  ),
-                                );
-
-                                return;
-                              }
-
-                              final newOrder = Order(
-                                id: order.id,
-                                customerName: customerName,
-                                date: order.date,
-                              );
-
-                              orderRepo.update(newOrder);
-
-                              Navigator.pop(context);
-                            },
-                            confirmText: "Update",
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (BuildContext context) =>
+                                UpdateOrderPage(),
                           ),
                         );
                       },

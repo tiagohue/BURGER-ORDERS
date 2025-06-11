@@ -6,11 +6,9 @@ class DB {
 
   static final DB instance = DB._();
 
-  // ignore: unused_field
   static Database? _database;
 
   Future<Database> get database async {
-    // ignore: unnecessary_null_comparison, recursive_getters
     if (_database != null) return _database!;
 
     return await _initDatabase();
@@ -49,9 +47,10 @@ class DB {
 
   String get _orderBurger => '''
     CREATE TABLE order_burger (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
       burger_id INTEGER,
       order_id INTEGER,
-      amount INTEGER,
+      quantity INTEGER,
       FOREIGN KEY (burger_id) REFERENCES burgers(id),
       FOREIGN KEY (order_id) REFERENCES orders(id)
     );

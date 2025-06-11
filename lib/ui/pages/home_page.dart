@@ -1,7 +1,7 @@
 import 'package:burger_orders/ui/pages/burgers_page.dart';
-import 'package:burger_orders/viewmodels/color_scheme_view_model.dart';
+import 'package:burger_orders/providers/color_scheme_view_provider.dart';
 import 'package:burger_orders/ui/widgets/standard_button.dart';
-import 'package:burger_orders/ui/pages/orders_page.dart';
+import 'package:burger_orders/ui/pages/order/orders_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:provider/provider.dart';
@@ -31,11 +31,11 @@ class _HomePageState extends State<HomePage> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Consumer<ColorSchemeViewModel>(
+                      Consumer<ColorSchemeProvider>(
                         builder:
                             (
                               BuildContext context,
-                              ColorSchemeViewModel value,
+                              ColorSchemeProvider value,
                               Widget? child,
                             ) {
                               if (value.current.brightness ==
@@ -87,7 +87,7 @@ class _HomePageState extends State<HomePage> {
                 iconData: MaterialCommunityIcons.theme_light_dark,
                 text: "Theme",
                 onPressed: () {
-                  Provider.of<ColorSchemeViewModel>(
+                  Provider.of<ColorSchemeProvider>(
                     context,
                     listen: false,
                   ).change();

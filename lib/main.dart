@@ -29,6 +29,7 @@ class MyApp extends StatelessWidget {
     return Consumer<ColorSchemeViewModel>(
       builder: (context, value, child) => MaterialApp(
         theme: ThemeData(
+          fontFamily: "NewRocker",
           colorScheme: value.current,
           textTheme: TextTheme(
             titleLarge: TextStyle(
@@ -36,6 +37,8 @@ class MyApp extends StatelessWidget {
               fontSize: 50,
               height: 0.8,
             ),
+            titleMedium: TextStyle(fontFamily: "NewRocker", fontSize: 30),
+            titleSmall: TextStyle(fontFamily: "NewRocker", fontSize: 15),
           ),
         ),
         home: const HomePage(),

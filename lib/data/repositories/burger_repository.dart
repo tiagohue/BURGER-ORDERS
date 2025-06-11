@@ -28,11 +28,15 @@ class BurgerRepository extends ChangeNotifier {
   }
 
   Future create(Burger burger) async {
-    await db.insert(
+    int id = await db.insert(
       "burgers",
       burger.toMap(),
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
+
+    burger.id = id;
+
+    burgers.add(burger);
 
     notifyListeners();
   }
@@ -66,11 +70,16 @@ class BurgerRepository extends ChangeNotifier {
       whereArgs: [burger.id],
     );
 
+    final index = burgers.indexWhere((b) => b.id == burger.id);
+    burgers[index] = burger;
+
     notifyListeners();
   }
 
   Future delete(int id) async {
     await db.delete("burgers", where: "id = ?", whereArgs: [id]);
+
+    burgers.removeWhere((burger) => burger.id == id);
 
     notifyListeners();
   }

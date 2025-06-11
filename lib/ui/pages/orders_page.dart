@@ -1,3 +1,4 @@
+import 'package:burger_orders/ui/widgets/add_button.dart';
 import 'package:burger_orders/ui/widgets/standard_button.dart';
 import 'package:flutter/material.dart';
 
@@ -15,16 +16,27 @@ class _OrdersPageState extends State<OrdersPage> {
       child: Scaffold(
         appBar: AppBar(centerTitle: true, title: Text("Orders")),
         body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+          child: ListView.builder(
+            itemCount: 1,
+            itemBuilder: (_, _) => ListTile(title: Text("burger")),
+          ),
+        ),
+        floatingActionButton: AddButton(
+          modelName: "Order",
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
-              StandardButton(text: "See All", onPressed: () {}),
-              StandardButton(text: "Create", onPressed: () {}),
-              StandardButton(text: "Remove", onPressed: () {}),
-              StandardButton(text: "Update", onPressed: () {}),
-              StandardButton(text: "Delete", onPressed: () {}),
+              TextField(decoration: InputDecoration(labelText: "Name")),
+              TextField(decoration: InputDecoration(labelText: "Ingredients")),
+              TextField(
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(labelText: "Price"),
+              ),
             ],
           ),
+          onCreate: () {
+            debugPrint("criar");
+          },
         ),
       ),
     );

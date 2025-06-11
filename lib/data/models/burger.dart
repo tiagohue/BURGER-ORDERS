@@ -1,11 +1,11 @@
 class Burger {
-  final int id;
+  int? id;
   final String name;
   final String ingredients;
   final double price;
 
-  const Burger({
-    required this.id,
+  Burger({
+    this.id,
     required this.name,
     required this.ingredients,
     required this.price,

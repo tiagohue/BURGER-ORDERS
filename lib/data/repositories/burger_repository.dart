@@ -41,24 +41,7 @@ class BurgerRepository extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future retrieve(int id) async {
-    List<Map<String, Object?>> burgerMaps = await db.query(
-      "burger",
-      where: "id = ?",
-      whereArgs: [id],
-    );
-
-    return [
-      for (final {
-            "id": id as int,
-            "name": name as String,
-            "ingredients": ingredients as String,
-            "price": price as double,
-          }
-          in burgerMaps)
-        Burger(id: id, name: name, ingredients: ingredients, price: price),
-    ];
-  }
+  Burger retrieve(int id) => burgers.where((b) => b.id == id).first;
 
   List<Burger> retrieveAll() => burgers;
 

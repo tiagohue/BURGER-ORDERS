@@ -66,26 +66,22 @@ class _HomePageState extends State<HomePage> {
               StandardButton(
                 iconData: MaterialCommunityIcons.hamburger,
                 text: "Burgers",
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (BuildContext context) => BurgersPage(),
-                    ),
-                  );
-                },
+                onPressed: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (BuildContext context) => BurgersPage(),
+                  ),
+                ),
               ),
               StandardButton(
-                iconData: MaterialIcons.view_list,
+                iconData: MaterialCommunityIcons.text_box_outline,
                 text: "Orders",
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (BuildContext context) => OrdersPage(),
-                    ),
-                  );
-                },
+                onPressed: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (BuildContext context) => OrdersPage(),
+                  ),
+                ),
               ),
               StandardButton(
                 iconData: MaterialCommunityIcons.theme_light_dark,

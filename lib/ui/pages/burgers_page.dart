@@ -1,10 +1,10 @@
 import 'package:burger_orders/data/models/burger.dart';
 import 'package:burger_orders/data/repositories/burger_repository.dart';
+import 'package:burger_orders/ui/utils.dart';
 import 'package:burger_orders/ui/widgets/add_button.dart';
 import 'package:burger_orders/ui/widgets/standard_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class BurgersPage extends StatefulWidget {
@@ -50,7 +50,7 @@ class _BurgersPageState extends State<BurgersPage> {
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
                 subtitle: Text(
-                  formatReal(burger.price),
+                  Utils.formatReal(burger.price),
                   style: Theme.of(context).textTheme.titleSmall,
                 ),
                 trailing: Row(
@@ -171,58 +171,59 @@ class _BurgersPageState extends State<BurgersPage> {
           ),
         ),
         floatingActionButton: AddButton(
-          modelName: "Burger",
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              TextField(
-                controller: nameController,
-                decoration: InputDecoration(labelText: "Name"),
+          onPressed: () => showDialog(
+            context: context,
+            builder: (_) => StandardDialog(
+              title: "Create new Burger",
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  TextField(
+                    controller: nameController,
+                    decoration: InputDecoration(labelText: "Name"),
+                  ),
+                  TextField(
+                    controller: ingredientsController,
+                    decoration: InputDecoration(labelText: "Ingredients"),
+                  ),
+                  TextField(
+                    controller: priceController,
+                    keyboardType: TextInputType.number,
+                    decoration: InputDecoration(labelText: "Price"),
+                  ),
+                ],
               ),
-              TextField(
-                controller: ingredientsController,
-                decoration: InputDecoration(labelText: "Ingredients"),
-              ),
-              TextField(
-                controller: priceController,
-                keyboardType: TextInputType.number,
-                decoration: InputDecoration(labelText: "Price"),
-              ),
-            ],
+              onConfirm: () {
+                final name = nameController.text.trim();
+                final ingredients = ingredientsController.text.trim();
+                final price =
+                    double.tryParse(priceController.text.trim()) ?? 0.0;
+
+                if (name.isEmpty || ingredients.isEmpty || price <= 0) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text("Fill in all fields correctly!"),
+                    ),
+                  );
+
+                  return;
+                }
+
+                final newBurger = Burger(
+                  name: name,
+                  ingredients: ingredients,
+                  price: price,
+                );
+
+                repo.create(newBurger);
+
+                Navigator.pop(context);
+              },
+              confirmText: "Create",
+            ),
           ),
-          onCreate: () {
-            final name = nameController.text.trim();
-            final ingredients = ingredientsController.text.trim();
-            final price = double.tryParse(priceController.text.trim()) ?? 0.0;
-
-            if (name.isEmpty || ingredients.isEmpty || price <= 0) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text("Fill in all fields correctly!")),
-              );
-
-              return;
-            }
-
-            final newBurger = Burger(
-              name: name,
-              ingredients: ingredients,
-              price: price,
-            );
-
-            repo.create(newBurger);
-
-            nameController.clear();
-            ingredientsController.clear();
-            priceController.clear();
-
-            Navigator.pop(context);
-          },
         ),
       ),
     );
   }
-}
-
-String formatReal(double valor) {
-  return NumberFormat.currency(locale: 'pt_BR', symbol: 'R\$').format(valor);
 }

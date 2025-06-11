@@ -1,4 +1,5 @@
 import 'package:burger_orders/data/repositories/burger_repository.dart';
+import 'package:burger_orders/data/repositories/order_repository.dart';
 import 'package:burger_orders/ui/pages/home_page.dart';
 import 'package:burger_orders/viewmodels/color_scheme_view_model.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +16,7 @@ void main() async {
       providers: [
         ChangeNotifierProvider(create: (context) => ColorSchemeViewModel()),
         ChangeNotifierProvider(create: (context) => BurgerRepository()),
+        ChangeNotifierProvider(create: (context) => OrderRepository()),
       ],
       child: const MyApp(),
     ),

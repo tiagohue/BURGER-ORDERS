@@ -42,7 +42,8 @@ class DB {
   String get _order => '''
     CREATE TABLE orders (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
-      data DATE
+      date TEXT,
+      customer_name TEXT
     );
   ''';
 

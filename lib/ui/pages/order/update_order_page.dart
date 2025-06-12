@@ -150,12 +150,14 @@ class _UpdateOrderPageState extends State<UpdateOrderPage> {
                           }
                         });
 
+                        Order orderToUpdate = Provider.of<OrderUpdateProvider>(
+                          context,
+                          listen: false,
+                        ).orderToUpdate;
+
                         final updateOrder = Order(
-                          id: Provider.of<OrderUpdateProvider>(
-                            context,
-                            listen: false,
-                          ).orderToUpdate.id!,
-                          date: DateTime.now().toIso8601String().split('T')[0],
+                          id: orderToUpdate.id!,
+                          date: orderToUpdate.date,
                           customerName: customerName,
                           orderBurgers: orderBurgers,
                         );

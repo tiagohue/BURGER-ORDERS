@@ -1,5 +1,6 @@
 import 'package:burger_orders/ui/pages/burgers_page.dart';
 import 'package:burger_orders/providers/color_scheme_view_provider.dart';
+import 'package:burger_orders/ui/pages/chart_page.dart';
 import 'package:burger_orders/ui/widgets/standard_button.dart';
 import 'package:burger_orders/ui/pages/order/orders_page.dart';
 import 'package:flutter/material.dart';
@@ -80,6 +81,16 @@ class _HomePageState extends State<HomePage> {
                   context,
                   MaterialPageRoute(
                     builder: (BuildContext context) => OrdersPage(),
+                  ),
+                ),
+              ),
+              StandardButton(
+                iconData: MaterialCommunityIcons.chart_bar,
+                text: "Chart",
+                onPressed: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (BuildContext context) => ChartPage(),
                   ),
                 ),
               ),
